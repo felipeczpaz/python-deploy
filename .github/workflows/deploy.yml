@@ -62,7 +62,7 @@ jobs:
             "$VENV_DIR/bin/pip3" install --upgrade pip
             # If you use requirements.txt:
             if [ -f "$APP_DIR/requirements.txt" ]; then
-              "$VENV_DIR/bin/pip3" install -r "$APP_DIR/requirements.txt"
+              "$VENV_DIR/bin/pip3" install -r "$APP_DIR/python-deploy/requirements.txt"
             fi
 
             echo "==> Restarting pm2 service"
