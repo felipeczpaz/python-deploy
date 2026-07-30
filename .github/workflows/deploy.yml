@@ -65,6 +65,9 @@ jobs:
               "$VENV_DIR/bin/pip3" install -r "$APP_DIR/python-deploy/requirements.txt"
             fi
 
+            "$VENV_DIR/bin/python" -c "import flask; print(flask.__version__)"
+            "$VENV_DIR/bin/pip3" -V
+
             echo "==> Restarting pm2 service"
             # Use a pm2 ecosystem file if you have one; otherwise restart by start command.
             # (Best practice: store an ecosystem.config.js on the server.)
