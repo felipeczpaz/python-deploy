@@ -25,14 +25,61 @@ jobs:
           script: |
             set -euo pipefail
 
-            APP_DIR="/opt/myapp"
-            SERVICE_NAME="myapp"
+            APP_DIR="/opt/python-deploy"
+            SERVICE_NAME="python-deploy"
+            REPO_URL="https://github.com/felipeczpaz/python-deploy.git"
+            BRANCH="main"
 
-            # Create dir
+            # Optional: decide whether to use venv
+            VENV_DIR="$APP_DIR/.venv"
+
+            echo "==> Ensuring app directory exists"
             sudo mkdir -p "$APP_DIR"
 
-            # Upload artifact
-            # (appleboy/ssh-action can’t directly upload from workspace in this minimal example,
-            # so we’ll wget it if you host it. If you want direct upload, tell me your setup.)
-            echo "ERROR: Provide an artifact URL or add upload-from-workspace steps."
-            exit 1
+            echo "==> Cloning/pulling repository"
+            if [ -d "$APP_DIR/.git" ]; then
+              cd "$APP_DIR"
+              git fetch --all --prune
+              git checkout "$BRANCH"
+              git pull origin "$BRANCH"
+            else
+              cd "$(dirname "$APP_DIR")"
+              sudo rm -rf "$APP_DIR"
+              git clone -b "$BRANCH" "$REPO_URL" "$APP_DIR"
+            fi
+
+            echo "==> Installing dependencies (venv)"
+            if [ ! -d "$VENV_DIR" ]; then
+              python3 -m venv "$VENV_DIR"
+            fi
+
+            # Use venv python/pip
+            "$VENV_DIR/bin/pip" install --upgrade pip
+            # If you use requirements.txt:
+            if [ -f "$APP_DIR/requirements.txt" ]; then
+              "$VENV_DIR/bin/pip" install -r "$APP_DIR/requirements.txt"
+            fi
+
+            echo "==> Restarting pm2 service"
+            # Use a pm2 ecosystem file if you have one; otherwise restart by start command.
+            # (Best practice: store an ecosystem.config.js on the server.)
+            #
+            # Option A: ecosystem file:
+            # pm2 reload "$SERVICE_NAME" --update-env
+
+            # Option B: if pm2 process already exists by name:
+            if pm2 list | grep -q "$SERVICE_NAME"; then
+              pm2 reload "$SERVICE_NAME" --update-env || pm2 restart "$SERVICE_NAME" --update-env
+            else
+              # Start it the first time. Change the command to your actual entrypoint.
+              # Example: if your app is app.py and you want a plain python process:
+              "$VENV_DIR/bin/python" "$APP_DIR/app.py" # (DO NOT run yet; see next line)
+            fi
+
+            # If not running yet, start properly (uncomment and adjust)
+            if ! pm2 list | grep -q "$SERVICE_NAME"; then
+              pm2 start "$VENV_DIR/bin/python" --name "$SERVICE_NAME" -- "$APP_DIR/app.py"
+            fi
+
+            echo "==> Saving pm2 process list"
+            pm2 save
