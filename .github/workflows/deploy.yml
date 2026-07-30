@@ -56,13 +56,13 @@ jobs:
             "$VENV_DIR/bin/python" -m ensurepip --upgrade
 
             ls -la "$VENV_DIR/bin"
-            ls -la "$VENV_DIR/bin/pip" "$VENV_DIR/bin/pip3"
+            ls -la "$VENV_DIR/bin/pip3"
 
             # Use venv python/pip
-            "$VENV_DIR/bin/pip" install --upgrade pip
+            "$VENV_DIR/bin/pip3" install --upgrade pip
             # If you use requirements.txt:
             if [ -f "$APP_DIR/requirements.txt" ]; then
-              "$VENV_DIR/bin/pip" install -r "$APP_DIR/requirements.txt"
+              "$VENV_DIR/bin/pip3" install -r "$APP_DIR/requirements.txt"
             fi
 
             echo "==> Restarting pm2 service"
