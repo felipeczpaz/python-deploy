@@ -25,7 +25,7 @@ jobs:
           script: |
             set -euo pipefail
 
-            APP_DIR="/opt/python-deploy"
+            APP_DIR="~/python-deploy"
             SERVICE_NAME="python-deploy"
             REPO_URL="https://github.com/felipeczpaz/python-deploy.git"
             BRANCH="main"
