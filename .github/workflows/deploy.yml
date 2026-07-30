@@ -61,7 +61,7 @@ jobs:
             # Use venv python/pip
             "$VENV_DIR/bin/pip3" install --upgrade pip
             # If you use requirements.txt:
-            if [ -f "$APP_DIR/requirements.txt" ]; then
+            if [ -f "$APP_DIR/python-deploy/requirements.txt" ]; then
               "$VENV_DIR/bin/pip3" install -r "$APP_DIR/python-deploy/requirements.txt"
             fi
 
