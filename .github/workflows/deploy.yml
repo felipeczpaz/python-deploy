@@ -1,0 +1,38 @@
+name: Deploy Python to EC2 (SSH)
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create artifact
+        run: |
+          zip -r app.zip . -x "*.git*" -x "__pycache__/*" -x "*.venv/*"
+
+      - name: Upload to EC2 via SSH + deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+
+          script: |
+            set -euo pipefail
+
+            APP_DIR="/opt/myapp"
+            SERVICE_NAME="myapp"
+
+            # Create dir
+            sudo mkdir -p "$APP_DIR"
+
+            # Upload artifact
+            # (appleboy/ssh-action can’t directly upload from workspace in this minimal example,
+            # so we’ll wget it if you host it. If you want direct upload, tell me your setup.)
+            echo "ERROR: Provide an artifact URL or add upload-from-workspace steps."
+            exit 1
