@@ -78,12 +78,12 @@ jobs:
             else
               # Start it the first time. Change the command to your actual entrypoint.
               # Example: if your app is app.py and you want a plain python process:
-              "$VENV_DIR/bin/python" "$APP_DIR/app.py" # (DO NOT run yet; see next line)
+              "$VENV_DIR/bin/python" "$APP_DIR/python-deploy/app.py" # (DO NOT run yet; see next line)
             fi
 
             # If not running yet, start properly (uncomment and adjust)
             if ! pm2 list | grep -q "$SERVICE_NAME"; then
-              pm2 start "$VENV_DIR/bin/python" --name "$SERVICE_NAME" -- "$APP_DIR/app.py"
+              pm2 start "$VENV_DIR/bin/python" --name "$SERVICE_NAME" -- "$APP_DIR/python-deploy/app.py"
             fi
 
             echo "==> Saving pm2 process list"
