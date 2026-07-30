@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Tailwind Page</title>
+
+  <!-- Tailwind via CDN (quick + simple) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {}
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <header class="sticky top-0 bg-white/80 backdrop-blur border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="font-semibold text-lg">MySite</div>
+      <nav class="hidden sm:flex gap-6 text-sm text-slate-600">
+        <a href="#" class="hover:text-slate-900">Home</a>
+        <a href="#" class="hover:text-slate-900">About</a>
+        <a href="#" class="hover:text-slate-900">Contact</a>
+      </nav>
+      <button class="rounded-lg bg-slate-900 text-white px-4 py-2 text-sm hover:bg-slate-800">
+        Sign in
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="max-w-5xl mx-auto px-4 py-12">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <p class="inline-flex items-center gap-2 text-sm font-medium text-slate-700">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            New: simple Tailwind layout
+          </p>
+          <h1 class="mt-4 text-4xl sm:text-5xl font-bold leading-tight">
+            Build fast, responsive pages with Tailwind CSS
+          </h1>
+          <p class="mt-4 text-slate-600">
+            This is a simple example page using Tailwind classes for spacing, typography, and layout.
+          </p>
+
+          <div class="mt-7 flex flex-col sm:flex-row gap-3">
+            <a href="#"
+               class="rounded-lg bg-slate-900 text-white px-5 py-3 text-sm font-semibold hover:bg-slate-800 text-center">
+              Get started
+            </a>
+            <a href="#"
+               class="rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold hover:bg-slate-50 text-center">
+              Learn more
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <h2 class="font-semibold text-lg">Quick features</h2>
+          <ul class="mt-4 space-y-3 text-sm text-slate-700">
+            <li class="flex gap-3">
+              <span class="mt-1 inline-block w-2.5 h-2.5 rounded-full bg-sky-500"></span>
+              Responsive grid + spacing
+            </li>
+            <li class="flex gap-3">
+              <span class="mt-1 inline-block w-2.5 h-2.5 rounded-full bg-fuchsia-500"></span>
+              Clean typography + buttons
+            </li>
+            <li class="flex gap-3">
+              <span class="mt-1 inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              Sticky header with blur
+            </li>
+          </ul>
+
+          <div class="mt-6 rounded-xl bg-slate-50 border border-slate-200 p-4">
+            <div class="text-xs font-medium text-slate-500">Status</div>
+            <div class="mt-1 flex items-center justify-between">
+              <div class="font-semibold">All systems operational</div>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold">
+                Live
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-3 gap-6">
+        <div class="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
+          <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold">1</div>
+          <h3 class="mt-4 font-semibold">Design</h3>
+          <p class="mt-2 text-sm text-slate-600">Use Tailwind utility classes to style quickly.</p>
+        </div>
+
+        <div class="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
+          <div class="w-10 h-10 rounded-xl bg-violet-100 text-violet-700 flex items-center justify-center font-bold">2</div>
+          <h3 class="mt-4 font-semibold">Build</h3>
+          <p class="mt-2 text-sm text-slate-600">Create responsive layouts with simple grids.</p>
+        </div>
+
+        <div class="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">3</div>
+          <h3 class="mt-4 font-semibold">Ship</h3>
+          <p class="mt-2 text-sm text-slate-600">Deploy fast and iterate as needed.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="max-w-5xl mx-auto px-4 py-6 text-sm text-slate-600 flex items-center justify-between flex-wrap gap-2">
+      <div>© <span id="year"></span> MySite. All rights reserved.</div>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-slate-900">Privacy</a>
+        <a href="#" class="hover:text-slate-900">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
