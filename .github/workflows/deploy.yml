@@ -25,7 +25,7 @@ jobs:
           script: |
             set -euo pipefail
 
-            APP_DIR="~/python-deploy"
+            APP_DIR="/home/$(whoami)/python-deploy"
             SERVICE_NAME="python-deploy"
             REPO_URL="https://github.com/felipeczpaz/python-deploy.git"
             BRANCH="main"
@@ -34,7 +34,7 @@ jobs:
             VENV_DIR="$APP_DIR/.venv"
 
             echo "==> Ensuring app directory exists"
-            sudo mkdir -p "$APP_DIR"
+            mkdir -p "$APP_DIR"
 
             echo "==> Cloning/pulling repository"
             if [ -d "$APP_DIR/.git" ]; then
